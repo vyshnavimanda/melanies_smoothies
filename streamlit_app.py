@@ -41,8 +41,8 @@ my_dataframe = pd.DataFrame(my_dataframe)
 
 #convert snowpark dataframe to pandas dataframe so we can use LOC function
 pd_df=my_dataframe.to_pandas()
-# st.dataframe(pd_df)
-# st.stop()
+st.dataframe(pd_df)
+st.stop()
 
 
 # Extract fruit names for multiselect
