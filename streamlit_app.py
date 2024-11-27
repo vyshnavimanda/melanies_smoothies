@@ -49,11 +49,22 @@ if ingredients_list:
     time_to_insert = st.button('Submit Order')
 
     if time_to_insert:
-        # Use parameterized query for safety
-        insert_stmt = """
-            INSERT INTO smoothies.public.orders (ingredients, name_on_order)
-            VALUES (%s, %s)
-        """
-        session.sql(insert_stmt, (ingredients_string.strip(), name_on_order)).collect()
+        # # Use parameterized query for safety
+        # insert_stmt = """
+        #     INSERT INTO smoothies.public.orders (ingredients, name_on_order)
+        #     VALUES (%s, %s)
+        # """
+        # session.sql(insert_stmt, (ingredients_string.strip(), name_on_order)).collect()
 
-        st.success('Your Smoothie is ordered, ' + name_on_order + '!', icon="✅")
+        # st.success('Your Smoothie is ordered, ' + name_on_order + '!', icon="✅")
+        try:
+            insert_stmt = """
+                INSERT INTO smoothies.public.orders (ingredients, name_on_order)
+                VALUES (?, ?)
+             """
+            session.sql(insert_stmt, (ingredients_string.strip(), name_on_order)).collect()
+            st.success(f'Your Smoothie is ordered, {name_on_order}!', icon="✅")
+        except Exception as e:
+            st.error(f"Error while placing the order: {str(e)}")
+            print(f"Error details: {e}")
+
