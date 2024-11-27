@@ -35,11 +35,11 @@ except Exception as e:
 # Fetch data from Snowflake and convert to DataFrame
 my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'),col('SEARCH_ON')).collect()
 # st.dataframe(data=my_dataframe, use_container_width=True)
-# my_dataframe = pd.DataFrame(my_dataframe)
+my_dataframe = pd.DataFrame(my_dataframe)
 # st.stop()
 
 #convert snowpark dataframe to pandas dataframe so we can use LOC function
-pd_df=my_dataframe.to_pandas()
+# pd_df=my_dataframe.to_pandas()
 st.dataframe(pd_df)
 st.stop()
 
