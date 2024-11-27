@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 from snowflake.snowpark.functions import col
+import snowflake.snowpark as snowpark
 
 # Write directly to the app
 st.title(":cup_with_straw: Customize Your Smoothie :cup_with_straw:")
@@ -9,8 +10,26 @@ st.write("Choose the fruits you want in your custom smoothie.")
 name_on_order = st.text_input('Name on Smoothie:')
 st.write('The name on your smoothie will be:', name_on_order)
 
+try:
+    cnx = snowpark.Session.builder.configs({
+        "account": "UITVMUC-HYB64296",
+        "user": "vyshnaviM",
+        "password": "Password@598",
+        "role": "SYSADMIN",
+        "warehouse": "COMPUTE_WH",
+        "database": "SMOOTHIES",
+        "schema": "PUBLIC"
+    }).create()
+
 cnx = st.connection("snowflake")
 session = cnx.session
+
+
+session.sql("SELECT CURRENT_DATABASE()").collect()
+    st.write("Connected to Snowflake successfully!")
+
+except Exception as e:
+    st.error(f"Failed to connect to Snowflake: {e}")
 
 # Fetch data from Snowflake and convert to DataFrame
 my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME')).collect()
