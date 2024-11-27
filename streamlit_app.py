@@ -39,7 +39,9 @@ my_dataframe = pd.DataFrame(my_dataframe)
 # st.stop()
 
 #convert snowpark dataframe to pandas dataframe so we can use LOC function
-pd_df=my_dataframe.to_pandas()
+# pd_df=my_dataframe.to_pandas()
+df_rows = [row.as_dict() for row in my_dataframe]
+pd_df = pd.DataFrame(df_rows)
 st.dataframe(pd_df)
 st.stop()
 
