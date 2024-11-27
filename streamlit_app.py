@@ -1,6 +1,5 @@
 # Import python packages
 import streamlit as st
-from snowflake.snowpark import Session
 from snowflake.snowpark.functions import col
 
 # Write directly to the app
@@ -13,28 +12,16 @@ st.write(
 name_on_order = st.text_input('Name on Smoothie:')
 st.write('The name on your smoothie will be:', name_on_order)
 
-connection_parameters = {
-    "account": st.secrets["connections"]["snowflake"]["UITVMUC-HYB64296"],
-    "user": st.secrets["connections"]["snowflake"]["vyshnaviM"],
-    "password": st.secrets["connections"]["snowflake"]["Password@598"],
-    "role": st.secrets["connections"]["snowflake"]["SYSADMIN"],
-    "warehouse": st.secrets["connections"]["snowflake"]["COMPUTE_WH"],
-    "database": st.secrets["connections"]["snowflake"]["SMOOTHIES"],
-    "schema": st.secrets["connections"]["snowflake"]["PUBLIC"]
-}
+cnx = st.connection("snowflake")
+session = cnx.session
 
-session = Session.builder.configs(connection_parameters).create()
-
-# cnx = st.connection("snowflake")
-# session = cnx.session
-
-# session = get_active_session()
+session = get_active_session()
 my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'))
 # st.dataframe(data=my_dataframe, use_container_width=True)
 
 ingredients_list = st.multiselect(
 'Choose upto 5 ingredients:'
-, my_dataframe.to_pandas()['FRUIT_NAME'].tolist()
+, my_dataframe
 , max_selections = 5
 )
 
