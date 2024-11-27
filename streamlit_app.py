@@ -21,11 +21,10 @@ try:
         "schema": "PUBLIC"
     }).create()
 
-cnx = st.connection("snowflake")
-session = cnx.session
+# cnx = st.connection("snowflake")
+    session = cnx
 
-
-session.sql("SELECT CURRENT_DATABASE()").collect()
+    session.sql("SELECT CURRENT_DATABASE()").collect()
     st.write("Connected to Snowflake successfully!")
 
 except Exception as e:
