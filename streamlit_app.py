@@ -14,13 +14,13 @@ name_on_order = st.text_input('Name on Smoothie:')
 st.write('The name on your smoothie will be:', name_on_order)
 
 connection_parameters = {
-    "account": st.secrets["snowflake"]["UITVMUC-HYB64296"],
-    "user": st.secrets["snowflake"]["vyshnaviM"],
-    "password": st.secrets["snowflake"]["Password@598"],
-    "role": st.secrets["snowflake"]["SYSADMIN"],
-    "warehouse": st.secrets["snowflake"]["COMPUTE_WH"],
-    "database": st.secrets["snowflake"]["SMOOTHIES"],
-    "schema": st.secrets["snowflake"]["PUBLIC"]
+    "account": st.secrets["connections"]["snowflake"]["UITVMUC-HYB64296"],
+    "user": st.secrets["connections"]["snowflake"]["vyshnaviM"],
+    "password": st.secrets["connections"]["snowflake"]["Password@598"],
+    "role": st.secrets["connections"]["snowflake"]["SYSADMIN"],
+    "warehouse": st.secrets["connections"]["snowflake"]["COMPUTE_WH"],
+    "database": st.secrets["connections"]["snowflake"]["SMOOTHIES"],
+    "schema": st.secrets["connections"]["snowflake"]["PUBLIC"]
 }
 
 session = Session.builder.configs(connection_parameters).create()
