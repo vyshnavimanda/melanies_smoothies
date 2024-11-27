@@ -35,24 +35,17 @@ except Exception as e:
 # Fetch data from Snowflake and convert to DataFrame
 my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'),col('SEARCH_ON')).collect()
 # st.dataframe(data=my_dataframe, use_container_width=True)
+# st.stop()
 my_dataframe = pd.DataFrame(my_dataframe)
-# st.stop()
 
-# #convert snowpark dataframe to pandas dataframe so we can use LOC function
-# # pd_df=my_dataframe.to_pandas()
-# df_rows = [row.as_dict() for row in my_dataframe]
-# pd_df = pd.DataFrame(df_rows)
-# st.dataframe(pd_df)
-# st.stop()
 
-if isinstance(my_dataframe[0], snowpark.Row):
-    # Convert Snowpark Rows to a pandas DataFrame
-    df_rows = [row.as_dict() for row in my_dataframe]
-    pd_df = pd.DataFrame(df_rows)
-else:
-    # Handle the case where `my_dataframe` is not a list of Rows
-    st.error("The collected data is not in the expected format.")
-    st.write(my_dataframe)  # Output for debugging
+#convert snowpark dataframe to pandas dataframe so we can use LOC function
+# pd_df=my_dataframe.to_pandas()
+df_rows = [row.as_dict() for row in my_dataframe]
+pd_df = pd.DataFrame(df_rows)
+st.dataframe(pd_df)
+st.stop()
+
 
 # Extract fruit names for multiselect
 fruit_names = my_dataframe['FRUIT_NAME'].tolist()
