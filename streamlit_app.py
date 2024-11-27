@@ -34,9 +34,9 @@ except Exception as e:
 
 # Fetch data from Snowflake and convert to DataFrame
 my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'),col('SEARCH_ON')).collect()
-st.dataframe(data=my_dataframe, use_container_width=True)
+# st.dataframe(data=my_dataframe, use_container_width=True)
 my_dataframe = pd.DataFrame(my_dataframe)
-st.stop()
+# st.stop()
 
 # Extract fruit names for multiselect
 fruit_names = my_dataframe['FRUIT_NAME'].tolist()
