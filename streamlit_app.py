@@ -44,7 +44,7 @@ pd_df = pd.DataFrame(my_dataframe)
 
 
 # Extract fruit names for multiselect
-fruit_names = pd_df['FRUIT_NAME'].tolist()
+# fruit_names = pd_df['FRUIT_NAME'].tolist()
 
 ingredients_list = st.multiselect(
     'Choose up to 5 ingredients:',
