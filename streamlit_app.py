@@ -25,7 +25,7 @@ try:
     session = cnx
 
     session.sql("SELECT CURRENT_DATABASE()").collect()
-    st.write("Connected to Snowflake successfully!")
+    # st.write("Connected to Snowflake successfully!")
 
 except Exception as e:
     st.error(f"Failed to connect to Snowflake: {e}")
