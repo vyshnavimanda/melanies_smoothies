@@ -36,13 +36,11 @@ except Exception as e:
 my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'),col('SEARCH_ON')).collect()
 # st.dataframe(data=my_dataframe, use_container_width=True)
 # st.stop()
-pd_df = pd.DataFrame(my_dataframe)
-
 
 #convert snowpark dataframe to pandas dataframe 
-#pd_df=my_dataframe.to_pandas()
-st.dataframe(pd_df)
-st.stop()
+pd_df = pd.DataFrame(my_dataframe)
+# st.dataframe(pd_df)
+# st.stop()
 
 
 # Extract fruit names for multiselect
